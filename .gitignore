@@ -127,3 +127,6 @@ dist
 
 # SvelteKit build / generate output
 .svelte-kit
+
+#config
+.config.env
