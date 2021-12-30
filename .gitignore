@@ -129,4 +129,4 @@ dist
 .svelte-kit
 
 #config
-.config.env
+config.env
