@@ -2,6 +2,7 @@ const Tour = require('../models/tourModel');
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
 
+
 // exports.checkID = (req, res, next, val) => {
 //   console.log(val);
 
@@ -43,7 +44,7 @@ exports.getAllTours = async (req, res) => {
   }
 };
 
-exports.getTour = async (req, res,next) => {
+exports.getTour = async (req, res, next) => {
   try {
     const tour = await Tour.findById(req.params.id);
 
@@ -110,7 +111,7 @@ exports.updateTour = async (req, res) => {
 
 exports.deleteTour = async (req, res) => {
   try {
-    const tour=await Tour.findByIdAndDelete(req.params.id);
+    const tour = await Tour.findByIdAndDelete(req.params.id);
     if (!tour) {
       return next(new AppError('No tour with this id', 404));
     }

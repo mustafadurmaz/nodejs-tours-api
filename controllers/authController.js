@@ -59,3 +59,29 @@ exports.login = async (req, res, next) => {
     token,
   });
 };
+
+exports.protect = async (req, res, next) => {
+  // getting token check of it is there
+  let token;
+  console.log(req.headers.authorization);
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Ankara')
+  ) {
+    token = req.headers.authorization.split(' ')[1];
+  }
+  console.log(token);
+
+  if (!token) {
+    return next(
+      new AppError('You are not log in!Please log in to access', 401)
+    );
+  }
+  // verification token
+
+  // check if user still exists
+
+  // check if user changed password after the token was issued
+
+  next();
+};
