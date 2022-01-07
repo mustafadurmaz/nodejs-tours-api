@@ -17,6 +17,7 @@ exports.signup = async (req, res) => {
       password: req.body.password,
       passwordConfirm: req.body.passwordConfirm,
       passwordChangedAt: req.body.passwordChangedAt,
+      role: req.body.role,
     });
 
     const token = signToken(newUser._id);
@@ -76,7 +77,7 @@ exports.protect = async (req, res, next) => {
 
     if (
       req.headers.authorization &&
-      req.headers.authorization.startsWith('Ankara')
+      req.headers.authorization.startsWith('Bearer')
     ) {
       token = req.headers.authorization.split(' ')[1];
     }
@@ -118,4 +119,16 @@ exports.protect = async (req, res, next) => {
       message: error,
     });
   }
+};
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    // roles ['admin','lead-guide'] role='user'
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError("You don't have permission to perform this action", 403)
+      );
+    }
+    next();
+  };
 };
